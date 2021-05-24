@@ -1,0 +1,64 @@
+# Sample config for Grafana Agent
+# For a full configuration reference, see: https://github.com/grafana/agent/blob/main/docs/configuration-reference.md.
+server:
+  http_listen_port: 12345
+
+prometheus:
+  global:
+    scrape_interval: 15s
+
+  wal_directory: '/tmp/grafana-agent-wal'
+
+loki:
+  configs:
+  - name: default
+    positions:
+      filename: /tmp/loki-positions.yaml
+    scrape_configs:
+      - job_name: varlogs
+        static_configs:
+          - targets: [localhost]
+            labels:
+              job: varlogs
+              __path__: /var/log/*log
+      - job_name: dmesg
+        static_configs:
+          - targets: [localhost]
+            labels:
+              job: dmesg
+              __path__: /var/log/dmesg
+      - job_name: messages
+        static_configs:
+          - targets: [localhost]
+            labels:
+              job: messages
+              __path__: /var/log/messages*
+
+    clients:
+      - url: https://logs-prod-us-central1.grafana.net/api/prom/push
+        basic_auth:
+          username: <your_grafana_cloud_logs_username>
+          password: <your_grafana_cloud_logs_api_key>
+
+integrations:
+  node_exporter:
+    enabled: true
+    wal_truncate_frequency: 1m # Longer duration requires more storage
+    disable_collectors:
+      - "mdadm"
+      - "textfile"
+      - "ipvs"
+      - "zfs"
+      - "nfs"
+      - "pressure"
+      - "hwmon"
+      - "infiniband"
+      - "bonding"
+      - "schedstat"
+      - "powersupplyclass"
+
+  prometheus_remote_write:
+  - url: https://prometheus-blocks-prod-us-central1.grafana.net/api/prom/push
+    basic_auth:
+      username: <your_grafana_cloud_metrics_username>
+      password: <your_grafana_cloud_metrics_api_key>
