@@ -78,7 +78,7 @@ Work here was highly inspired by [Monitoring EdgeRouter with Node Exporter](http
 
     ```sh
     cd /config/grafana-agent
-    ./grafana-agent -config.file ./grafana-agent.yaml -log.level debug
+    ./agent-linux-mipsle -config.file ./grafana-agent.yaml -log.level debug
     ```
 
 11. Browse dashboard and logs
