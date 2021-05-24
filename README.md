@@ -55,22 +55,16 @@ This is a short guide for getting [Grafana Agent](https://grafana.com/docs/grafa
 
 7. Install the `Linux Server` integration in your Grafana Cloud instance
 
-    - Navigate via `Onboarding -> Walkthrough`.
-    - Find `Linux Server` integration, select it and click Next.
-    - Extract the `GCLOUD_STACK_ID` for later use as metrics username.
-    - Extract the `GCLOUD_API_KEY` for later use as metrics password.
+    - Follow the [guide](https://grafana.com/docs/grafana-cloud/quickstart/agent_linuxnode/)
+    - In the `Run this command` instruction, extract the `GCLOUD_STACK_ID` and `GCLOUD_API_KEY` for later use as metrics username and password.
 
 8. Install the `Loki` integration in your Grafana Cloud instance
 
-    - Navigate via `Onboarding -> Walkthrough`.
-    - Find `Logs` integration, select it and click Next.
-    - Enter API Key name, e.g. EdgeRouter logs publisher, and click Create API key .
-    - You'll see a client URL of `url: https://<username>:<password>@<url>`
-    - Copy the username, password and URL for later use as logs username, password and URL.
+    Follow the [guide](https://grafana.com/docs/grafana-cloud/quickstart/logs_agent_linuxnode/) to create and get a Grafana Cloud logs endpoint URL, username, password and URL.
 
 9. Edit grafana-agent configuration
 
-    Configure Grafana Cloud endpoint URLs, usernames and API keys for logs and metrics.
+    Configure Grafana Cloud endpoint URLs, usernames and API keys for logs and metrics. See [Configuration Reference](https://github.com/grafana/agent/blob/main/docs/configuration-reference.md) for all available configuration parameters.
 
     ```sh
     vi /config/grafana-agent/grafana-agent.yaml
@@ -78,10 +72,20 @@ This is a short guide for getting [Grafana Agent](https://grafana.com/docs/grafa
 
 10. Start the agent manually
 
+    > Note: Currently running the agent might hang the EdgeRouter requiring a reboot of your device. Keeping an eye of CPU and system load in the `Integration - Linux Node / Nodes` dashboard is a good idea allowing you to quit the agent if things doesn't go as expected.
+
     ```sh
     cd /config/grafana-agent
     ./grafana-agent -config.file ./grafana-agent.yaml -log.level debug
     ```
+
+11. Browse dashboard and logs
+
+    Browse the `Integration - Linux Node / Nodes` dashboard:
+    ![Dashboard](images/dashboard.png)
+
+    Jump into Explore and browse logs:
+    ![Logs](images/logs.png)
 
 ## (Optional) systemd
 
