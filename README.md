@@ -4,6 +4,8 @@
 
 This is a short guide for getting [Grafana Agent](https://grafana.com/docs/grafana-cloud/agent/) running on the Ubiquiti EdgeRouter platform.
 
+Work here was highly inspired by [Monitoring EdgeRouter with Node Exporter](https://www.observability.blog/monitoring-edgerouter-with-node-exporter/), however by using Grafana Agent there's no need for a standalone Prometheus server to scrape your metrics.
+
 ## Setup
 
 1. Enter a root shell
