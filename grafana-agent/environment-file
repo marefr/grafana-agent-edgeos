@@ -7,7 +7,7 @@
 # Command line options for grafana-agent
 #
 # Log level. Valid levels: [debug, info, warn, error] (default info)
-LOG_LEVEL="error"
+LOG_LEVEL="info"
 
 # The configuration file holding the agent config
 CONFIG_FILE="/etc/grafana-agent.yaml"

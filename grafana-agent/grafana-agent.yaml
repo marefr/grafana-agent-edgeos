@@ -5,7 +5,7 @@ server:
 
 prometheus:
   global:
-    scrape_interval: 15s
+    scrape_interval: 30s # lower scrape interval might add more pressure on the device
 
   wal_directory: '/tmp/grafana-agent-wal'
 
@@ -13,7 +13,7 @@ loki:
   configs:
   - name: default
     positions:
-      filename: /tmp/loki-positions.yaml
+      filename: /config/grafana-agent/loki-positions.yaml
     scrape_configs:
       - job_name: varlogs
         static_configs:
@@ -43,7 +43,7 @@ loki:
 integrations:
   node_exporter:
     enabled: true
-    wal_truncate_frequency: 1m # Longer duration requires more storage
+    wal_truncate_frequency: 5m # Longer duration requires more storage
     disable_collectors:
       - "mdadm"
       - "textfile"
